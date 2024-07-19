@@ -1,0 +1,14 @@
+# Ignore database files in any immediate subdirectory
+*/*.db
+
+# Ignore db folders in any immediate subdirectory
+*/db
+
+# Ignore environment files in any immediate subdirectory
+*/.env
+
+# Ignore env folders in any immediate subdirectory
+*/env
+
+# Ignore data folders in any immediate subdirectory
+*/data
