@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Load environment variables
-env_path = Path('.') / '.env'
+env_path = Path('env\.env') 
 load_dotenv(dotenv_path=env_path)
 
 # Initialize API keys
@@ -81,16 +81,12 @@ def main(pdf_path, questions):
     return json_results
 
 if __name__ == "__main__":
-    pdf_path = "handbook.pdf"
+    pdf_path = "data/handbook.pdf"
     questions = [
         "What is the name of the company?",
         "Who is the CEO of the company?",
         "What is their vacation policy?",
-        "What is the termination policy?",
-        "What is the reward policy?",
-        "What are code of ethics?",
-        "List down the welcome policy",
-        "Who are the CEO of this company?"
+        "What is the termination policy?"
     ]
     results = main(pdf_path, questions)
     print(results)
