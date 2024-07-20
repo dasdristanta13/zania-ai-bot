@@ -2,6 +2,33 @@
 
 This repository contains two implementations of a Question Answering (QA) Bot designed to extract information from PDF documents and answer user queries.
 
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/dasdristanta13/zania-ai-bot.git
+   cd zania-ai-bot
+   ```
+
+2. Create a virtual environment and activate it:
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   ```
+
+3. Install the required dependencies:
+   ```
+   pip install -r requirements.txt 
+   ```
+
+4. Set up environment variables:
+   Create a `.env` file in the project root and add the following:
+   ```
+   OPENAI_API_KEY=your_openai_api_key
+   SLACK_BOT_TOKEN=your_slack_bot_token
+   ```
+
+
 ## Use Cases
 
 1. **Solution1**: A comprehensive QA system with advanced features
