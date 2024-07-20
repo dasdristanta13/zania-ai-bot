@@ -75,11 +75,3 @@ To make the solution more accurate, consider the following approaches:
 11. **Feedback Loop**: Implement a mechanism to collect user feedback on answer quality and use this to improve the system over time.
 
 12. **Named Entity Recognition**: Incorporate NER to improve the handling of specific entities mentioned in questions and documents.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
