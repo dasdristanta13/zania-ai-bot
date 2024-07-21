@@ -27,7 +27,9 @@ This repository contains two implementations of a Question Answering (QA) Bot de
    OPENAI_API_KEY=your_openai_api_key
    SLACK_BOT_TOKEN=your_slack_bot_token
    ```
+## Use Case Demo:
 
+https://github.com/user-attachments/assets/d4688a16-2f83-45ea-a43a-4245ed5b1591
 
 ## Use Cases
 
@@ -116,4 +118,5 @@ This repository contains two implementations of a Question Answering (QA) Bot de
 
 Choose the solution that best fits your specific requirements and level of complexity needed.
 
-https://github.com/dasdristanta13/zania-ai-bot/blob/main/asset/Zania-ai-bot-video-demo.mp4
+
+
