@@ -31,8 +31,18 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 # SQLite database setup
 DB_PATH = 'qa_cache.db'
 
-def process_questions(qa_chain, questions, cache_manager):
-    """Process a list of questions and return results."""
+def process_questions(qa_chain, questions: list, cache_manager: CacheManager) -> dict:
+    """
+    Process a list of questions and return results.
+
+    Args:
+        qa_chain: The question-answering chain.
+        questions (list): A list of questions to process.
+        cache_manager (CacheManager): The cache manager instance.
+
+    Returns:
+        dict: A dictionary containing the questions and their answers.
+    """
     results = {}
     for question in questions:
         # Check if the question is in the cache
@@ -54,8 +64,17 @@ def process_questions(qa_chain, questions, cache_manager):
     
     return results
 
-def main(pdf_path, questions):
-    """Main function to process PDF and answer questions."""
+def main(pdf_path: str, questions: list) -> str:
+    """
+    Main function to process PDF and answer questions.
+
+    Args:
+        pdf_path (str): The file path to the PDF.
+        questions (list): A list of questions to answer.
+
+    Returns:
+        str: JSON string containing the questions and their answers.
+    """
     # Initialize managers
     cache_manager = CacheManager(DB_PATH)
     pdf_extractor = PDFExtractor()
@@ -81,6 +100,7 @@ def main(pdf_path, questions):
     return json_results
 
 if __name__ == "__main__":
+    # Example usage
     pdf_path = "data/handbook.pdf"
     questions = [
         "What is the name of the company?",
