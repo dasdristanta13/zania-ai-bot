@@ -12,3 +12,5 @@
 
 # Ignore data folders in any immediate subdirectory
 */data
+
+*/__pycache__
