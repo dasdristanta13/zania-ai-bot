@@ -115,3 +115,5 @@ This repository contains two implementations of a Question Answering (QA) Bot de
 - **Error Handling**: Solution2 emphasizes robust error handling and logging throughout the system.
 
 Choose the solution that best fits your specific requirements and level of complexity needed.
+
+https://github.com/dasdristanta13/zania-ai-bot/blob/main/asset/Zania-ai-bot-video-demo.mp4
