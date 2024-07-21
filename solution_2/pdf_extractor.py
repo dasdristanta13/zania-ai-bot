@@ -1,3 +1,10 @@
+"""
+pdf_extractor.py: A module for extracting and processing text from PDF files.
+
+This module provides functionality to load PDF files, split them into chunks,
+extract sections, and create vector stores for efficient text searching and retrieval.
+"""
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.schema import Document
@@ -13,13 +20,29 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class PDFExtractor:
+    """
+    A class for extracting and processing text from PDF files.
+    """
+
     PERSIST_DIRECTORY = 'db'
 
     def __init__(self):
+        """
+        Initialize the PDFExtractor with OpenAI embeddings.
+        """
         self.openai_ef = OpenAIEmbeddings(model="text-embedding-ada-002")
 
     @staticmethod
     def get_pdf_text(pdf_path: str) -> List[Document]:
+        """
+        Load and split a PDF file into pages.
+
+        Args:
+            pdf_path (str): The path to the PDF file.
+
+        Returns:
+            List[Document]: A list of Document objects, each representing a page.
+        """
         try:
             loader = PyPDFLoader(pdf_path)
             pages = loader.load_and_split()
@@ -30,6 +53,15 @@ class PDFExtractor:
 
     @staticmethod
     def get_text_chunks(pages: List[Document]) -> List[Document]:
+        """
+        Split pages into smaller text chunks and extract sections.
+
+        Args:
+            pages (List[Document]): A list of Document objects representing PDF pages.
+
+        Returns:
+            List[Document]: A list of Document objects representing text chunks.
+        """
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=2000,
             chunk_overlap=400,
@@ -48,6 +80,15 @@ class PDFExtractor:
 
     @staticmethod
     def extract_section(text: str) -> str:
+        """
+        Extract the section number from a text chunk.
+
+        Args:
+            text (str): The text chunk to extract the section from.
+
+        Returns:
+            str: The extracted section number or "N/A" if not found.
+        """
         try:
             section_match = re.search(r'\b(\d+\.\d+)\b', text)
             if section_match:
@@ -57,6 +98,16 @@ class PDFExtractor:
         return "N/A"
 
     def get_vectorstore(self, text_chunks: List[Document], pdf_path: str) -> Chroma:
+        """
+        Create or load a vector store for the given text chunks.
+
+        Args:
+            text_chunks (List[Document]): A list of Document objects representing text chunks.
+            pdf_path (str): The path to the PDF file.
+
+        Returns:
+            Chroma: A Chroma vector store object.
+        """
         pdf_id = os.path.basename(pdf_path).replace('.pdf', '')
         persist_directory = os.path.join(self.PERSIST_DIRECTORY, pdf_id)
         
@@ -80,6 +131,15 @@ class PDFExtractor:
 
     @staticmethod
     def remove_duplicates(chunks: List[Union[Document, str]]) -> List[Document]:
+        """
+        Remove duplicate chunks from the list.
+
+        Args:
+            chunks (List[Union[Document, str]]): A list of Document objects or strings.
+
+        Returns:
+            List[Document]: A list of unique Document objects.
+        """
         seen = set()
         unique_chunks = []
         for chunk in chunks:

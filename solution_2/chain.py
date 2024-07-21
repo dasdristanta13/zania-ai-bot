@@ -1,3 +1,11 @@
+"""
+chain.py: Manages the creation and execution of the question-answering chain.
+
+This module sets up an advanced retrieval-based question-answering system
+using LangChain components. It combines dense and sparse retrievers,
+applies contextual compression, and uses a custom prompt for answering questions.
+"""
+
 from langchain.chat_models import ChatOpenAI
 from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain.retrievers import ContextualCompressionRetriever
@@ -13,10 +21,29 @@ logger = logging.getLogger(__name__)
 
 class ChainManager:
     def __init__(self, openai_api_key):
+        """
+        Initialize the ChainManager with the OpenAI API key.
+
+        Args:
+        openai_api_key (str): The OpenAI API key for authentication
+        """
         self.openai_api_key = openai_api_key
 
     def create_advanced_chain(self, vectorstore):
+        """
+        Create an advanced question-answering chain.
+
+        This method sets up a complex retrieval system combining dense and sparse
+        retrievers, applies contextual compression, and uses custom prompts.
+
+        Args:
+        vectorstore: The vector store containing the document embeddings
+
+        Returns:
+        RetrievalQA: The question-answering chain, or None if an error occurs
+        """
         try:
+            # Initialize the language model
             llm = ChatOpenAI(model_name="gpt-3.5-turbo-0125", temperature=0.00001, openai_api_key=self.openai_api_key)
             
             # Create dense retriever
@@ -40,6 +67,7 @@ class ChainManager:
                 base_retriever=ensemble_retriever
             )
             
+            # Define custom prompts
             context_prompt = PromptTemplate(
                 input_variables=["context", "question"],
                 template="Given the following context:\n\n{context}\n\nAnswer the following question: {question}\n\nIf the answer is not explicitly stated in the context, try to find keywords matching. Else, say 'Data Not Available'. Include the section number in your response when possible."
@@ -50,6 +78,7 @@ class ChainManager:
                 template="[Section {section}] {page_content}"
             )
             
+            # Create the QA chain
             qa_chain = RetrievalQA.from_chain_type(
                 llm=llm,
                 chain_type="stuff",
@@ -68,6 +97,15 @@ class ChainManager:
 
     @staticmethod
     def prepare_documents(docs):
+        """
+        Prepare documents for use in the BM25 retriever.
+
+        Args:
+        docs: The documents to prepare
+
+        Returns:
+        list: A list of prepared Document objects
+        """
         prepared_docs = []
         for doc in docs:
             if isinstance(doc, Document):
@@ -80,6 +118,16 @@ class ChainManager:
 
     @staticmethod
     def process_query(chain, query):
+        """
+        Process a query using the QA chain.
+
+        Args:
+        chain: The question-answering chain
+        query (str): The question to process
+
+        Returns:
+        tuple: A tuple containing the answer and source documents
+        """
         try:
             response = chain({"query": query})
             return response['result'], response['source_documents']

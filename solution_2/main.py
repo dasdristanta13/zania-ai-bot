@@ -1,3 +1,11 @@
+"""
+main.py: Main entry point for the PDF question-answering application.
+
+This script orchestrates the process of extracting text from a PDF,
+creating a vector store, answering questions, and posting results to Slack.
+It also manages caching of answers for efficiency.
+"""
+
 import os
 import json
 import logging
@@ -28,7 +36,17 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 DB_PATH = 'qa_cache.db'
 
 def process_questions(qa_chain, questions, cache_manager):
-    """Process a list of questions and return results."""
+    """
+    Process a list of questions and return results.
+    
+    Args:
+    qa_chain: The question-answering chain
+    questions (list): List of questions to process
+    cache_manager (CacheManager): Instance of CacheManager for caching answers
+
+    Returns:
+    dict: A dictionary with questions as keys and results as values
+    """
     results = {}
     for question in questions:
         try:
@@ -55,7 +73,16 @@ def process_questions(qa_chain, questions, cache_manager):
     return results
 
 def main(pdf_path, questions):
-    """Main function to process PDF and answer questions."""
+    """
+    Main function to process PDF and answer questions.
+    
+    Args:
+    pdf_path (str): Path to the PDF file
+    questions (list): List of questions to answer
+
+    Returns:
+    str: JSON string containing the results
+    """
     try:
         # Initialize managers
         cache_manager = CacheManager(DB_PATH)
