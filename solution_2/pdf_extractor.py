@@ -4,16 +4,15 @@ pdf_extractor.py: A module for extracting and processing text from PDF files.
 This module provides functionality to load PDF files, split them into chunks,
 extract sections, and create vector stores for efficient text searching and retrieval.
 """
-
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
-from langchain.schema import Document
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
 import os
 import re
 import logging
 from typing import List, Union
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

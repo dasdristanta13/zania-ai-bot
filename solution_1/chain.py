@@ -1,12 +1,11 @@
 """
 chain.py: Manages the creation and usage of the QA chain
 """
-
-from langchain.chat_models import ChatOpenAI
 from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
-from langchain.prompts import PromptTemplate
+from langchain_community.chat_models import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
 
 class ChainManager:
     """

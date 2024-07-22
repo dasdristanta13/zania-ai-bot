@@ -5,15 +5,15 @@ This module sets up an advanced retrieval-based question-answering system
 using LangChain components. It combines dense and sparse retrievers,
 applies contextual compression, and uses a custom prompt for answering questions.
 """
-
-from langchain.chat_models import ChatOpenAI
 from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
-from langchain.prompts import PromptTemplate
-from langchain.retrievers import BM25Retriever, EnsembleRetriever
-from langchain.schema import Document
+from langchain.retrievers import EnsembleRetriever
 import logging
+from langchain_community.chat_models import ChatOpenAI
+from langchain_community.retrievers import BM25Retriever
+from langchain_core.documents import Document
+from langchain_core.prompts import PromptTemplate
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

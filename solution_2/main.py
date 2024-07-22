@@ -128,7 +128,8 @@ if __name__ == "__main__":
         "What is the name of the company?",
         "Who is the CEO of the company?",
         "What is their vacation policy?",
-        "What is the termination policy?"
+        "What is the termination policy?",
+        "What is their retention policy?"
     ]
     results = main(pdf_path, questions)
     print(results)
